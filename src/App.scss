@@ -7,4 +7,17 @@ html, body, div, main, section, p, h1, h2, h3, h4{
     margin: 0;
 }
 body{
+    .btn_default{
+        font-weight: 700;
+        padding: 10px;
+        color: rgb(62, 62, 63);
+        background-color: #fff;
+        border-radius: 5px;
+        border: 0.5px solid rgb(62, 62, 63);
+        margin: 20px;
+    }
+    .btn_default:hover {
+        background-color: rgb(233, 233, 233);
+        cursor: pointer;
+    }
 }

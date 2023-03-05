@@ -1,0 +1,28 @@
+.drop_box{
+    display: grid;
+    justify-items: center;
+    .drop_zone{
+        min-width: 200px;
+        height: 200px;
+        padding: 25px;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        cursor: pointer;
+        color: #b8b8b8;
+        border: 4px dashed #818181;
+        border-radius: 10px;
+        margin: 30px;
+        font-weight: 701;
+        .drop_input{
+            display: none;
+        }
+    }
+    .drop_zone:hover{
+        background-color: rgb(233, 233, 233);
+    }
+    .file_hover{
+        background-color: rgb(233, 233, 233);
+    }
+}
