@@ -1,10 +1,13 @@
 import React, { useState, DragEvent, HTMLDivElement, useRef, HTMLInputElement, MouseEvent } from 'react'
+import { read_file } from '../../../application/services/file.service.ts';
+import { is_ext_allowed } from '../../../application/services/file.service';
 import classes from "./Drop_file.module.scss"
 
 const Drop_file = () => {
     //const [file, set_file] = useState<any | undefined>(); // !!!!!!!!! NOT RECOMMENDED TO USE ANY, BUT IDK
     const [label, set_label] = useState<string>("Drop File Here or Click to Browse")
     const input_ref = useRef<null | HTMLInputElement>(null);
+    const drop_ref = useRef<null | HTMLDivElement>(null);
     
     // DROP
     // PROBLEM !!!
@@ -17,7 +20,10 @@ const Drop_file = () => {
         const dropped_files = event.dataTransfer.files;
         //set_file(()=>dropped_files);
         set_label(()=>dropped_files[0].name);
-        
+        if (drop_ref){
+            const drop_zone = drop_ref.current as HTMLDivElement;
+            drop_zone.classList.remove(classes.file_not_allowed);                  
+        }
         if (input_ref){
            input_ref.current.files = dropped_files; 
         }
@@ -48,6 +54,31 @@ const Drop_file = () => {
         if (input_ref){
             const input = input_ref.current as HTMLInputElement;
             set_label(()=>input.files[0].name);
+            if (drop_ref){
+                const drop_zone = drop_ref.current as HTMLDivElement;
+                drop_zone.classList.add(classes.file_selected);
+                drop_zone.classList.remove(classes.file_not_allowed);                  
+            }
+        }
+    }
+
+    const upload_file = () => {
+        if (input_ref) {
+            const input = input_ref.current as HTMLInputElement;
+            if (input.files.length !== 0){
+                //console.log(input.files[0]);
+                //console.log(is_ext_allowed(input.files[0].name));
+                //read_file(input.files[0]);
+                if (is_ext_allowed(input.files[0].name)){
+                    read_file(input.files[0]); 
+                }else{
+                    if (drop_ref){
+                        const drop_zone = drop_ref.current as HTMLDivElement;
+                        drop_zone.classList.add(classes.file_not_allowed);                  
+                        set_label(()=>"Please Upload .csv file");
+                    }
+                }
+            }
         }
     }
     return (
@@ -58,6 +89,7 @@ const Drop_file = () => {
                 onDragOver={drop_hover}
                 onDragLeave={drop_leave}
                 onClick={click_upload}
+                ref={drop_ref}
             >
                 <span id="drop-upload">{label}</span>
                 <input
@@ -69,7 +101,7 @@ const Drop_file = () => {
                     onChange={input_change}
                 />
             </div>
-            <button className={"btn_default"}>
+            <button onClick={upload_file} className={"btn_default"}>
                 UPLOAD
             </button>
         </div>

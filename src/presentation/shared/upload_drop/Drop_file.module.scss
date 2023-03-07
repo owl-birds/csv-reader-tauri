@@ -20,9 +20,20 @@
         }
     }
     .drop_zone:hover{
+        transition: 300ms;
         background-color: rgb(233, 233, 233);
     }
     .file_hover{
+        transition: 300ms;
+        background-color: rgb(233, 233, 233);
+    }
+    .file_not_allowed{
+        transition: 300ms;
+        color: #fa1442;
+        border-color: #fa1442;
+    }
+    .file_selected{
+        transition: 300ms;
         background-color: rgb(233, 233, 233);
     }
 }

@@ -17,6 +17,7 @@ body{
         margin: 20px;
     }
     .btn_default:hover {
+        transition: 300ms;
         background-color: rgb(233, 233, 233);
         cursor: pointer;
     }
