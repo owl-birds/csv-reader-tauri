@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Data, Uploaded_File_State, use_file_store } from '../../../application/states/file.state'
+import Cell from './Cell';
 import classes from "./Table.module.scss"
 
 const Table = () => {
@@ -26,10 +27,17 @@ const Table = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        data.map((row: Data, idx: number) => (
-                                            <tr key={idx}>
-                                                {columns.map((col_name: string, idx: number) => (
-                                                    <td key={idx}>{row[col_name]}</td>
+                                        data.map((row: Data, row_idx: number) => (
+                                            <tr key={row_idx}>
+                                                {columns.map((col_name: string, col_idx: number) => (
+                                                    //<td key={idx}>{row[col_name]}</td>
+                                                    <td key={col_idx}>
+                                                        <Cell 
+                                                        value={row[col_name]} 
+                                                        index={row_idx}
+                                                        column={col_name}
+                                                        />
+                                                    </td>
                                                 ))}
                                             </tr>
                                         ))
