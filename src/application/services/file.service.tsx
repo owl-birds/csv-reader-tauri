@@ -1,12 +1,23 @@
 import { extensions_map } from "../../infrastructure/extensions_allowed";
 import {csvParse, autoType} from "d3-dsv"
 import { Data } from "../states/file.state";
+import { use_file_store } from "../states/file.state.tsx";
+
+export const update_cell_service = (
+    new_value: number | string,
+    row_index: number,
+    col_name: string
+)=>{
+    const update_cell = use_file_store.getState().update_cell;
+    update_cell(new_value, row_index, col_name);
+}
 
 export const read_file = (
     file_obj: File, 
-    initiate_file_data: (new_data: any[], new_columns: string[])=>void
+    //initiate_file_data: (new_data: any[], new_columns: string[])=>void
 )=>{ // ANY PROBLEM HERE
     const reader = new FileReader();
+    const initiate_file_data = use_file_store.getState().initiate_data;
     reader.onload = (event: ProgressEvent<FileReader>)=>{
         const target = event.target;
         if (target){

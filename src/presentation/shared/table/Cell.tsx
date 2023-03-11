@@ -1,4 +1,5 @@
 import React, { useRef, useState, HTMLInputElement } from 'react'
+import { update_cell_service } from '../../../application/services/file.service.tsx';
 import classes from "./Cell.module.scss"
 
 interface Props {
@@ -14,6 +15,22 @@ const Cell = (props: Props) => {
     
     const out_of_focus = () => {
         set_is_input(()=>false);
+        if (input_ref){
+            const new_value = input_ref.current.value;
+            if (Number(value)){
+                console.log(`number: ${value}, ${new_value}`);
+                if (Number(new_value)){
+                    console.log("NUMBER INPUTTED");
+                    update_cell_service(Number(new_value), index, column);
+                }
+            }else{
+                console.log(`string: ${value}, ${new_value}`);
+                if (!Number(new_value)){
+                    console.log("STRING INPUTTED");
+                    update_cell_service(new_value, index, column);
+                }
+            }
+        }
     }
 
     const enter_input_mode = () => {

@@ -1,7 +1,7 @@
 import React, { useState, DragEvent, HTMLDivElement, useRef, HTMLInputElement, MouseEvent } from 'react'
 import { read_file } from '../../../application/services/file.service';
 import { is_ext_allowed } from '../../../application/services/file.service';
-import { Uploaded_File_State, use_file_store } from '../../../application/states/file.state';
+//import { Uploaded_File_State, use_file_store } from '../../../application/states/file.state';
 import classes from "./Drop_file.module.scss"
 
 const Drop_file = () => {
@@ -11,7 +11,7 @@ const Drop_file = () => {
     const drop_ref = useRef<null | HTMLDivElement>(null);
     
     // STATE HERE : Zustand
-    const initiate_file_data = use_file_store((state: Uploaded_File_State)=>state.initiate_data);
+    //const initiate_file_data = use_file_store((state: Uploaded_File_State)=>state.initiate_data);
 
     // DROP
     // PROBLEM !!!
@@ -74,7 +74,10 @@ const Drop_file = () => {
                 //console.log(is_ext_allowed(input.files[0].name));
                 //read_file(input.files[0]);
                 if (is_ext_allowed(input.files[0].name)){
-                    read_file(input.files[0], initiate_file_data); 
+                    read_file(
+                    input.files[0]
+                    //, initiate_file_data
+                ); 
                 }else{
                     if (drop_ref){
                         const drop_zone = drop_ref.current as HTMLDivElement;

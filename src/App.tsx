@@ -11,7 +11,7 @@ function App() {
     <main id="app-main">
         <Drop_file />
         {/*<Test />*/}
-        <Table />
+        <Table table_name="TEST TABLE" />
     </main>
   );
 }
