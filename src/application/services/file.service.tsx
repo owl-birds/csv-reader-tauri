@@ -2,6 +2,27 @@ import { extensions_map } from "../../infrastructure/extensions_allowed";
 import {csvParse, autoType} from "d3-dsv"
 import { Data } from "../states/file.state";
 import { use_file_store } from "../states/file.state.tsx";
+import {HTMLAnchorElement} from "react"
+
+export const data_to_csv_string = (
+    data: {[col_name: string | number]: string | number}[] 
+)=>{
+    const temp_csv_arr: string[] = [];
+    temp_csv_arr.push(Object.keys(data[0]).join(","));
+    
+    for (const row of data){
+        temp_csv_arr.push(Object.values(row).join(","));
+    }
+    return temp_csv_arr.join("\n");
+}
+
+export const csv_string_to_csv_file = (
+    csv_string: string,
+    a_ref: HTMLAnchorElement
+)=>{
+    const blob = new Blob([csv_string], {type: "text/csv"});
+    const url = window.URL.createObjectURL(blob);
+}
 
 export const update_cell_service = (
     new_value: number | string,

@@ -11,7 +11,7 @@ function App() {
     <main id="app-main">
         <Drop_file />
         {/*<Test />*/}
-        <Table table_name="TEST TABLE" />
+        <Table table_name="TEST TABLE" is_download_able={true} />
     </main>
   );
 }
