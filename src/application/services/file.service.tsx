@@ -21,7 +21,12 @@ export const csv_string_to_csv_file = (
     a_ref: HTMLAnchorElement
 )=>{
     const blob = new Blob([csv_string], {type: "text/csv"});
-    const url = window.URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob);
+    //console.log(url);
+    //console.log(a_ref);
+    a_ref.setAttribute("href", url);
+    a_ref.setAttribute("download", "data.csv");
+    a_ref.click();
 }
 
 export const update_cell_service = (
@@ -29,8 +34,11 @@ export const update_cell_service = (
     row_index: number,
     col_name: string
 )=>{
-    const update_cell = use_file_store.getState().update_cell;
-    update_cell(new_value, row_index, col_name);
+    //const update_cell = use_file_store.getState().update_cell;
+    const update_cell_2 = use_file_store.getState().update_cell_2;
+    //update_cell(new_value, row_index, col_name);
+    update_cell_2(new_value, row_index, col_name);
+    
 }
 
 export const read_file = (
