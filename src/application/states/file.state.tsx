@@ -6,7 +6,7 @@ export interface Data{
 }
 
 export interface Uploaded_File_State {
-    data: any[];
+    data: any[]; // BAND AID
     columns: string[];
     clear_state: () => void;
     initiate_data: (new_data: any[], columns: string[]) => void;
@@ -17,7 +17,9 @@ export interface Uploaded_File_State {
     update_cell_2: (
         new_value: string | number,
         row_index: number,
-        col_name: string) => void
+        col_name: string) => void;
+    add_row: ()=>void;
+    add_column: ()=>void;
 }
 
 export const use_file_store = create<Uploaded_File_State>()
@@ -34,7 +36,8 @@ export const use_file_store = create<Uploaded_File_State>()
             set((state: Uploaded_File_State)=>{
                 const new_data = [...state.data];
                 //const new_data = state.data.map((row)=>({...row}));
-                new_data[row_index][col_name] = new_value;
+                new_data[row_index][col_name] = Number(new_value) || Number(new_value) === 0 ? 
+                                        Number(new_value) : new_value;
                 return {data: new_data};
             });
         },
@@ -43,9 +46,28 @@ export const use_file_store = create<Uploaded_File_State>()
         ) =>{
             set(
                 produce((state: Uploaded_File_State)=>{
-                    state.data[row_index][col_name] = new_value;
+                    state.data[row_index][col_name] = Number(new_value) || Number(new_value) === 0 ? 
+                                        Number(new_value) : new_value;
                 })
             )
-        }
+        },
+        add_row: ()=>{
+            set(
+                produce((state: Uploaded_File_State)=>{
+                    const new_row: Data = {};
+                    for (const col of state.columns){
+                        new_row[col] = null;
+                    }
+                    state.data.push(new_row);
+                })
+            )
+        },
+        add_column: ()=>{
+            set(
+                produce((state: Uploaded_File_State)=>{
+
+                })
+            )
+        } 
     }))
 

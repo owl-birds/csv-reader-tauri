@@ -18,6 +18,7 @@ function App() {
             columns={columns}
             table_name="TEST TABLE" 
             is_download_able={true}  
+            is_edit_able={true}
         />
     </main>
   );
