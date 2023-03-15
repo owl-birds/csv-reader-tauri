@@ -7,12 +7,34 @@ import { HTMLAnchorElement } from "react"
 export const data_to_csv_string = (
     data: { [col_name: string | number]: string | number }[]
 ) => {
+    const columns = use_file_store.getState().columns;
     const temp_csv_arr: string[] = [];
-    temp_csv_arr.push(Object.keys(data[0]).join(","));
-    
+    temp_csv_arr.push(columns.join(","));
+    //temp_csv_arr.push(Object.keys(data[0]).join(","));
+    //console.log(data);
+    //console.log(columns);
     for (const row of data){
-        temp_csv_arr.push(Object.values(row).join(","));
+        //temp_csv_arr.push(Object.values(row).join(","));
+        let string_row = "";
+        //for (const col of columns){
+        for (let i = 0; i < columns.length; i += 1){
+            if (i === 0){
+                if (row[columns[i]] === null){
+                    //string_row = ",";
+                    continue;
+                }
+                string_row = `${row[columns[i]]}`;
+                continue;
+            }
+            if (row[columns[i]] === null){
+                string_row = `${string_row},`;
+                continue;
+            }
+            string_row = `${string_row},${row[columns[i]]}`;
+        }
+        temp_csv_arr.push(string_row);
     }
+    //console.log(temp_csv_arr);
     return temp_csv_arr.join("\n");
 }
 

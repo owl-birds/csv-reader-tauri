@@ -1,5 +1,5 @@
 import React, { useRef, HTMLTableElement, HTMLAnchorElement, HTMLInputElement } from 'react'
-import { add_row_service } from '../../../application/services/data.service';
+import { add_column_service, add_row_service } from '../../../application/services/data.service';
 import { csv_string_to_csv_file, data_to_csv_string } from '../../../application/services/file.service';
 import { 
     Data, 
@@ -43,8 +43,13 @@ const Table = (props: Props) => {
 
     const add_column = ()=>{
         if (input_add_col_ref){
-            console.log(input_add_col_ref.current.value);
+            //console.log(input_add_col_ref.current.value);
             // SERVICE
+            if (input_add_col_ref.current.value){
+                //console.log("NOT EMPTY", input_add_col_ref.current.value);
+                const new_column = input_add_col_ref.current.value;
+                add_column_service(new_column);
+            }
         }
     }
 

@@ -16,3 +16,8 @@ export const add_row_service = ()=>{
     const add_row = use_file_store.getState().add_row;
     add_row();
 }
+
+export const add_column_service = (new_column: string)=>{
+    const add_column = use_file_store.getState().add_column;
+    add_column(new_column);
+}

@@ -19,7 +19,7 @@ export interface Uploaded_File_State {
         row_index: number,
         col_name: string) => void;
     add_row: ()=>void;
-    add_column: ()=>void;
+    add_column: (new_column: string)=>void;
 }
 
 export const use_file_store = create<Uploaded_File_State>()
@@ -62,10 +62,14 @@ export const use_file_store = create<Uploaded_File_State>()
                 })
             )
         },
-        add_column: ()=>{
+        add_column: (new_column: string)=>{
             set(
                 produce((state: Uploaded_File_State)=>{
-
+                    if (state.columns.indexOf(new_column) !== -1) return;
+                    state.columns.push(new_column);
+                    for (const row of state.data){
+                        row[new_column] = null;    
+                    }
                 })
             )
         } 
